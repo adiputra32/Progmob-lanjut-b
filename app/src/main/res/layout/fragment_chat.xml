@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home_gradient"
+    tools:context=".ChatFragment">
+
+    <TextView
+        android:id="@+id/tv_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="Chat Room"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:fontFamily="@font/indigo_daisy"
+        android:layout_centerHorizontal="true"
+        tools:targetApi="jelly_bean" />
+
+    <LinearLayout
+        android:layout_below="@id/tv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_ic"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="59dp"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

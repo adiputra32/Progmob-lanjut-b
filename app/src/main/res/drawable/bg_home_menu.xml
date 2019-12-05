@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bottom 2dp Shadow -->
+    <item>
+        <shape  android:shape="rectangle">
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+
+    <!-- White Top color -->
+    <item android:bottom="30dp"
+        android:width="65dp"
+        tools:targetApi="m">
+        <bitmap android:src="@drawable/motor1"/>
+    </item>
+
+</layer-list>

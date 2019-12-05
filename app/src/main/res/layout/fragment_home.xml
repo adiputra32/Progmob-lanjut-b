@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrl_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context=".HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
+        android:background="@drawable/bg_home_gradient"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/ly_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <RelativeLayout
+                android:id="@+id/ly_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="130dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_welcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginRight="5dp"
+                        android:text="Hi,"
+                        android:textColor="#ffffff"
+                        android:textSize="28sp"
+                        android:textStyle="normal"
+                        android:fontFamily="@font/indigo_daisy"
+                        android:gravity="center_horizontal"
+                        tools:targetApi="jelly_bean" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_toRightOf="@+id/tv_welcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:text="Adi Putra"
+                        android:textColor="#ffffff"
+                        android:textSize="28sp"
+                        android:textStyle="normal"
+                        android:fontFamily="@font/indigo_daisy"
+                        android:gravity="center_horizontal"
+                        tools:targetApi="jelly_bean" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ly_status_account"
+                android:layout_below="@id/ly_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:elevation="3dp"
+                android:background="@drawable/circle_photo"
+                tools:targetApi="lollipop">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_acc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:text="Your Account is"
+                        android:textColor="#264da6"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"/>
+
+                    <TextView
+                        android:id="@+id/tv_status_acc"
+                        android:layout_toRightOf="@id/tv_acc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="not activated"
+                        android:textColor="#cf3e3e"
+                        android:textSize="12dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center_vertical"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_ic"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="#B2000000"
+                android:fontFamily="@font/roboto_regular"
+                android:padding="15dp"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:columnCount="5"
+                android:paddingTop="15dp"
+                android:rowCount="1">
+
+                <LinearLayout
+                    android:id="@+id/btn_all_bike"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:id="@+id/img_all_bike"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All Bike"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textColor="#B2000000"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_matic_bike"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:id="@+id/img_matic"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Matic"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textColor="#B2000000"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_standard_bike"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:id="@+id/img_standard"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Standard"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textColor="#B2000000"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_sport_bike"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:id="@+id/img_sport"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sport"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textColor="#B2000000"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_trail_bike"
+                    android:layout_width="65dp"
+                    android:layout_height="70dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal|bottom"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:id="@+id/img_trail"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Trail"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textAllCaps="false"
+                        android:textStyle="bold"
+                        android:textColor="#B2000000"
+                        android:textSize="10sp"/>
+
+                </LinearLayout>
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_ic"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Most Viewed"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="#B2000000"
+                android:fontFamily="@font/roboto_regular"
+                android:padding="15dp"/>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rev_most_searched"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:paddingTop="7dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

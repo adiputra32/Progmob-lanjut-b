@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="none"
+    tools:context=".CheckOutActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/bg_home_gradient"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_ic_up"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="20dp"
+            android:onClick="DetailMotor">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/motor1"
+                android:layout_marginRight="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="fill_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_harga_motor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:text="Rp 170.000/day"
+                    android:maxLines="1"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="jelly_bean" />
+
+                <TextView
+                    android:id="@+id/tv_nama_motor"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:textColor="#3e3c3c"
+                    android:textStyle="bold"
+                    android:text="Honda New CBR"
+                    android:textSize="15dp"
+                    android:maxLines="1"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="jelly_bean" />
+
+                <TextView
+                    android:id="@+id/tv_jenis_motor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal"
+                    android:text="Sport"
+                    android:textSize="13dp"
+                    android:maxLines="1"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="jelly_bean" />
+
+                <TextView
+                    android:id="@+id/tv_pemilik"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="normal"
+                    android:textSize="13dp"
+                    android:text="Adi Putra Motor"
+                    android:maxLines="1"
+                    android:fontFamily="@font/roboto_regular"
+                    tools:targetApi="jelly_bean" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ic"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:text="Set Pickup Location"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:layout_marginTop="10dp"/>
+
+            <com.example.adiputra.sewainbali.EditTextWithClear
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
+                android:hint="Pickup location.."
+                android:textSize="12sp"
+                android:textColor="#000000"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ic"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:text="Rent Details"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="22dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Days for Rent"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <ImageButton
+                    android:id="@+id/btn_sub_book"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_toLeftOf="@id/edt_days"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_remove_book_black_24dp"
+                    android:background="#ffffff"
+                    android:elevation="1dp"
+                    tools:targetApi="lollipop" />
+
+                <EditText
+                    android:id="@+id/edt_days"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bg_ic"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@id/btn_add_book"
+                    android:layout_centerVertical="true"
+                    android:inputType="number"
+                    android:textSize="12sp"
+                    android:text="1"/>
+
+                <ImageButton
+                    android:id="@+id/btn_add_book"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/ic_add_book_black_24dp"
+                    android:background="#ffffff"
+                    android:elevation="1dp"
+                    tools:targetApi="lollipop"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="22dp">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Rp 170.000"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="22dp">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="Fines for Late Return"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Rp 20.000/Hour"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="22dp">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="Insurance"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Rp 10.000"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:layout_marginTop="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="22dp">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total price"
+                    android:textStyle="bold"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="Rp 180.000"
+                    android:textStyle="bold"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ic"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:text="Payment Method"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="14sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:layout_marginTop="10dp"/>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp" >
+
+                <RadioButton
+                    android:id="@+id/rbtn_cash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cash"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="12sp"/>
+
+                <RadioButton
+                    android:id="@+id/rbtn_bank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bank Payment"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="12sp"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ic_down"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="80dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="12dp"
+                android:text="Rp 180.000"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btn_rent"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_alignParentRight="true"
+                android:textAllCaps="false"
+                android:text="Rent Now"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/roboto_regular"
+                android:background="@drawable/btn_gradient"
+                android:elevation="1dp"
+                tools:targetApi="lollipop"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

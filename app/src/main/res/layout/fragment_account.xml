@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".AccountFragment"
+    android:background="#f7efef"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f7efef"
+        android:paddingBottom="90dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="425dp">
+
+            <LinearLayout
+                android:id="@+id/ly_1"
+                android:background="@drawable/bg_account_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_marginTop="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/user"/>
+
+                <TextView
+                    android:id="@+id/tv_account_name"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="null"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="21sp"/>
+
+                <TextView
+                    android:id="@+id/tv_account_alamat"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ded8d8"
+                    android:textStyle="normal"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="14dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="45dp"
+                    android:gravity="center_horizontal"
+                    android:elevation="1dp"
+                    android:background="@drawable/circle_photo"
+                    tools:targetApi="lollipop">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_acc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:text="Your Account is"
+                            android:textColor="#264da6"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_vertical"/>
+
+                        <TextView
+                            android:id="@+id/tv_status_acc"
+                            android:layout_toRightOf="@id/tv_acc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="not activated"
+                            android:textColor="#cf3e3e"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_vertical"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ic_help_outline_black_24dp"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Bantuan"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="75dp"
+                android:layout_marginRight="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ic_library_books_black_24dp"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Ketentuan Layanan"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="75dp"
+                android:layout_marginRight="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ic_security_black_24dp" />
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Kebijakan Privasi"/>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="2"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="75dp"
+                android:layout_marginRight="20dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ic_star_border_black_24dp"/>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Nilai kami"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:textColor="#fff"
+                android:background="@drawable/btn_edit_custom"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="160dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
+                android:text="Edit Account"/>
+
+            <Button
+                android:id="@+id/btn_keluar"
+                android:textColor="#fff"
+                android:background="@drawable/btn_account_custom"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"
+                android:text="KELUAR" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

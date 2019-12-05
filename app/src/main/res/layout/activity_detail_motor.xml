@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailMotorActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:background="@drawable/bg_home_gradient"
+        android:orientation="vertical">
+
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/img_motor"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:fillColor="#A6FFFFFF"
+            app:pageColor="#00000000"
+            app:radius="6dp"
+            app:strokeColor="#A6FFFFFF"
+            app:strokeWidth="1dp"/>
+
+<!--        <View-->
+<!--            android:id="@+id/divider"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="?android:attr/listDivider" />-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/bg_ic_up">
+
+            <TextView
+                android:id="@+id/tv_harga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:maxLines="1"
+                android:text="Rp 125.000"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <TextView
+                android:id="@+id/tv_nama_motor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_harga"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:maxLines="2"
+                android:text="Motor Baru Tahun 2019 Murah Honda CBR"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:fontFamily="@font/roboto_regular" />
+
+            <TextView
+                android:id="@+id/tv_pemilik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_nama_motor"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:maxLines="1"
+                android:text="Putu Balik"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:fontFamily="@font/roboto_regular"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/bg_ic">
+
+            <TextView
+                android:id="@+id/tv_spesifikasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:maxLines="1"
+                android:text="Spesification"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_below="@id/tv_spesifikasi"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_below="@id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Merk"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_merk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="New Honda CBR"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Year"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="2018"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Color"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Black"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="CC"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_cc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="250 CC"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Fuel"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_fuel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Pertamax"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Helmet"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_helmet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="2 unit"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="5dp"
+            android:background="@drawable/bg_ic">
+
+            <TextView
+                android:id="@+id/tv_judul_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="10dp"
+                android:maxLines="1"
+                android:text="Detail"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_below="@id/tv_judul_detail"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:id="@+id/tv_detail"
+                android:layout_below="@id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:maxLines="20"
+                android:text="motor baru bos ini motor baru motor baru bos ini motor baru motor \n baru bos ini motor baru motor baru bos ini motor baru motor baru bos\n ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru "
+                android:textSize="13sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingBottom="80dp"
+            android:paddingTop="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_ic_down">
+
+            <TextView
+                android:id="@+id/tv_harga_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:maxLines="1"
+                android:text="Rp 125.000/Day"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/roboto_regular"/>
+
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Checkout"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/roboto_regular"
+                android:background="@drawable/btn_gradient"
+                android:gravity="center"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

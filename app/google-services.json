@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "56854514402",
+    "firebase_url": "https://sewain-acb47.firebaseio.com",
+    "project_id": "sewain-acb47",
+    "storage_bucket": "sewain-acb47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56854514402:android:ac83aed4d231f6d7deecbb",
+        "android_client_info": {
+          "package_name": "com.example.adiputra.sewainbali"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56854514402-mq4ci7hi94g0sfvvaqu7lm41uans2id5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7L5GmdYoBY4x1msn2zWpIOXffyV2ftGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56854514402-mq4ci7hi94g0sfvvaqu7lm41uans2id5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
