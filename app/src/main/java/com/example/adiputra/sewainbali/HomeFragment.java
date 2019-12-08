@@ -22,10 +22,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.adiputra.sewainbali.apiHelper.BaseApiService;
 import com.example.adiputra.sewainbali.apiHelper.UtilsApi;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,6 +54,8 @@ public class HomeFragment extends Fragment {
     private LinearLayout btnAllBike, btnMatic, btnStandard, btnSport, btnTrail;
     private ImageView imgAllBike, imgMatic, imgStandard, imgSport, imgTrail;
     private ScrollView scrlHome;
+    private boolean loadingRecyclerView = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -96,12 +102,38 @@ public class HomeFragment extends Fragment {
         dbHandler = new DatabaseHandler(requireContext());
 
         requestStatus();
-        addData();
+        mostSearchedArrayList = new ArrayList<>();
+//        addData();
+        getMotorMostViewedAwal(0,5);
 
         adapter = new MostSearchedAdapter(mostSearchedArrayList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+        {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            {
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = layoutManager.getChildCount();
+                    totalItemCount = layoutManager.getItemCount();
+                    pastVisiblesItems = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+
+                    if (loadingRecyclerView)
+                    {
+                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
+                        {
+                            loadingRecyclerView = false;
+                            Log.v("...", "Last Item Wow !");
+                            getMotorMostViewed(totalItemCount,5);
+                        }
+                    }
+                }
+            }
+        });
 
         final Intent intent = new Intent(requireContext(),SearchMotorActivity.class);
 
@@ -204,16 +236,115 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void addData(){
-        mostSearchedArrayList = new ArrayList<>();
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor2, "Honda Scoopy","Matic","Rp 75.000/day", "Putu Balik Motor"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor3, "Yamaha Nmax","Matic","Rp 120.000/day", "Adi Putra"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor2, "Honda Scoopy","Matic","Rp 75.000/day", "Putu Balik Motor"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor3, "Yamaha Nmax","Matic","Rp 120.000/day", "Adi Putra"));
-        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
+    private void getMotorMostViewed(int total, int tambah){
+        mApiService.motorMostViewedRequest(total,tambah)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        loading.dismiss();
+                        if (response.isSuccessful()){
+                            try {
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                if (jsonRESULTS.getString("error").equals("false")){
+                                    int jml = jsonRESULTS.names().length();
+                                    for (int i = 0; i <= jml ; i++){
+                                        String idMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("id_motor");
+                                        String gambarMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("gambar_motor");
+                                        String merk = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("merk");
+                                        String name = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("name");
+                                        String jenis_motor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("jenis_motor");
+                                        String harga = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("harga");
+                                        Log.d("lengthnya","i : " + i);
+                                        addData(idMotor,gambarMotor,merk,jenis_motor,harga,name);
+                                    }
+                                } else {
+                                    String error_message = jsonRESULTS.getString("error_msg");
+                                    Log.d("errorAPI", "errornya : " + error_message);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            getStatusSqlite();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        loading.dismiss();
+                        Log.e("debug", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(requireContext(), "Please, check your connection and try again!", Toast.LENGTH_SHORT).show();
+                        getStatusSqlite();
+                        loading.dismiss();
+                    }
+                });
+    }
+
+    private void getMotorMostViewedAwal(int total, int tambah){
+        mApiService.motorMostViewedRequest(total,tambah)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        loading.dismiss();
+                        if (response.isSuccessful()){
+                            try {
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                if (jsonRESULTS.getString("error").equals("false")){
+//                                    Log.d("lengthnya","jml : "+jsonRESULTS.names().length());
+//                                    Log.d("lengthnya","id motor: "+jsonRESULTS.getJSONArray("motor").getJSONObject(0).getString("id_motor"));
+//                                    Toast.makeText(requireContext(), "hai " + jsonRESULTS.getJSONArray("motor").getJSONObject(0).getString("merk"), Toast.LENGTH_SHORT).show();
+//                                    Log.d("lengthnya","jml: "+jsonRESULTS.names().length());
+//                                    Log.d("lengthnya","ke 2: "+jsonRESULTS.getJSONObject("motor").optString("id_motor"));
+                                    int jml = jsonRESULTS.names().length();
+                                    for (int i = 0; i <= jml ; i++){
+                                        String idMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("id_motor");
+                                        String gambarMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("gambar_motor");
+                                        String merk = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("merk");
+                                        String name = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("name");
+                                        String jenis_motor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("jenis_motor");
+                                        String harga = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("harga");
+                                        Log.d("lengthnya","i : " + i);
+                                        addData(idMotor,gambarMotor,merk,jenis_motor,harga,name);
+                                    }
+                                } else {
+                                    String error_message = jsonRESULTS.getString("error_msg");
+                                    Log.d("errorAPI", "errornya : " + error_message);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            getStatusSqlite();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        loading.dismiss();
+                        Log.e("debug", "onFailure: ERROR > " + t.toString());
+                        Toast.makeText(requireContext(), "Please, check your connection and try again!", Toast.LENGTH_SHORT).show();
+                        getStatusSqlite();
+                        loading.dismiss();
+                    }
+                });
+    }
+
+    private void addData(String id_motor, String gambar_motor, String merk, String jenis_motor, String harga, String name){
+        mostSearchedArrayList.add(new MostSearched(id_motor, gambar_motor, merk, jenis_motor, harga, name));
+        adapter.notifyDataSetChanged();
+
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor2, "Honda Scoopy","Matic","Rp 75.000/day", "Putu Balik Motor"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor3, "Yamaha Nmax","Matic","Rp 120.000/day", "Adi Putra"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor2, "Honda Scoopy","Matic","Rp 75.000/day", "Putu Balik Motor"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor3, "Yamaha Nmax","Matic","Rp 120.000/day", "Adi Putra"));
+//        mostSearchedArrayList.add(new MostSearched(R.drawable.motor1, "Honda New CBR","Sport","Rp 125.000/day", "Putu Balik Motor"));
     }
 
 }

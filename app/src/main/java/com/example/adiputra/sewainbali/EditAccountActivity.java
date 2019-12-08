@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,13 +23,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.adiputra.sewainbali.apiHelper.BaseApiService;
 import com.example.adiputra.sewainbali.apiHelper.UtilsApi;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,17 +43,21 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Multipart;
 
 public class EditAccountActivity extends AppCompatActivity {
 
     public static final int GET_FROM_GALLERY = 3;
     CircleImageView imgPP;
     ImageView imgIC;
-    Bitmap bitmap;
+    Bitmap bitmap,tmpImgPP,tmpImgIC;
     EditText edt_birthdate, edt_name, edt_email, edt_phone, edt_address;
     Calendar myCalendar = Calendar.getInstance();
     Cursor cursor;
@@ -73,16 +83,8 @@ public class EditAccountActivity extends AppCompatActivity {
         mApiService = UtilsApi.getAPIService();
         getWindow().setStatusBarColor(Color.parseColor("#262ca6"));
 
-
-        edt_name.setText(getIntent().getStringExtra("NAME"));
-        String bd = getIntent().getStringExtra("BIRTHDATE");
-        String adr = getIntent().getStringExtra("ADDRESS");
-        String ph = getIntent().getStringExtra("PHONE");
-        if (!bd.equals("kosong")) edt_birthdate.setText(bd);
-        if (!adr.equals("kosong")) edt_address.setText(adr);
-        if (!adr.equals("kosong")) edt_phone.setText(ph);
-
-        edt_email.setText(Preferences.getLoggedInUser(this));
+        loading = ProgressDialog.show(this, null, "Please wait...", true, false);
+        edit();
 
 //        dbHandler = new DatabaseHandler(this);
 
@@ -140,6 +142,21 @@ public class EditAccountActivity extends AppCompatActivity {
         String address = edt_address.getText().toString();
         String birthdate = edt_birthdate.getText().toString();
         String email = edt_email.getText().toString();
+        File ppFile = null,icFile = null;
+        MultipartBody.Part ppMultipart = null, icMultipart = null;
+        RequestBody ppName = null, icName = null;
+
+        if (tmpImgPP != null) {
+            ppFile = createTempFile(tmpImgPP);
+            ppName = RequestBody.create(MediaType.parse("image/*"), ppFile);
+            ppMultipart = MultipartBody.Part.createFormData("userimage", ppFile.getName(), ppName);
+        }
+
+        if (tmpImgIC != null) {
+            icFile = createTempFile(tmpImgIC);
+            icName = RequestBody.create(MediaType.parse("image/*"), icFile);
+            icMultipart = MultipartBody.Part.createFormData("idcardimage", icFile.getName(), icName);
+        }
 
         if (TextUtils.isEmpty(name)){
             edt_name.setError("This field is required");
@@ -162,7 +179,7 @@ public class EditAccountActivity extends AppCompatActivity {
         if (cancel){
             fokus.requestFocus();
         }else {
-            update(name,phone,address,birthdate,email);
+            update(name,phone,address,birthdate,email,ppMultipart,ppName,icMultipart,icName);
         }
     }
 
@@ -185,14 +202,89 @@ public class EditAccountActivity extends AppCompatActivity {
 //        }
 //    }
 
+    private void edit() {
+        mApiService.editRequest(Preferences.getLoggedInUser(this))
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()){
+                            Log.i("debug", "onResponse: BERHASIL");
+                            try {
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                String error = jsonRESULTS.getString("error");
+                                if (error.equals("false")){
+//                                    Toast.makeText(requireContext(), "BERHASIL REGISTRASI", Toast.LENGTH_SHORT).show();
+                                    String name = jsonRESULTS.getJSONObject("user").getString("nama");
+                                    String birthdate = "kosong";
+                                    String phone = "kosong";
+                                    String address = "kosong";
+                                    String photoProfile = "kosong";
+                                    String idCard = "kosong";
+
+                                    if (!jsonRESULTS.getJSONObject("user").isNull("birthdate")){
+                                        birthdate = jsonRESULTS.getJSONObject("user").getString("birthdate");
+                                    }
+
+                                    if (!jsonRESULTS.getJSONObject("user").isNull("phone")){
+                                        phone = jsonRESULTS.getJSONObject("user").getString("phone");
+                                    }
+
+                                    if (!jsonRESULTS.getJSONObject("user").isNull("address")){
+                                        address = jsonRESULTS.getJSONObject("user").getString("address");
+                                    }
+
+                                    if (!jsonRESULTS.getJSONObject("user").isNull("photo_profile")){
+                                        photoProfile = jsonRESULTS.getJSONObject("user").getString("photo_profile");
+                                    }
+
+                                    if (!jsonRESULTS.getJSONObject("user").isNull("id_card")){
+                                        idCard = jsonRESULTS.getJSONObject("user").getString("id_card");
+                                    }
+
+                                    edt_name.setText(name);
+                                    if (!birthdate.equals("")) edt_birthdate.setText(birthdate);
+                                    if (!address.equals("")) edt_address.setText(address);
+                                    if (!phone.equals("")) edt_phone.setText(phone);
+                                    if (!photoProfile.equals("")){
+                                        Glide.with(EditAccountActivity.this).load("https://sewainbali.000webhostapp.com/sewain/images/"+photoProfile).into(imgPP);
+                                    }
+                                    if (!idCard.equals("")){
+                                        Glide.with(EditAccountActivity.this).load("https://sewainbali.000webhostapp.com/sewain/images/"+idCard).into(imgIC);
+                                    }
+                                    edt_email.setText(Preferences.getLoggedInUser(EditAccountActivity.this));
+                                } else {
+                                    String error_message = jsonRESULTS.getString("error_msg");
+                                    Toast.makeText(EditAccountActivity.this, error_message, Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            loading.dismiss();
+                        } else {
+                            Log.i("debug", "onResponse: GA BERHASIL");
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("debug", "onFailure: ERROR > " + t.getMessage());
+                        Toast.makeText(EditAccountActivity.this, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+                        loading.dismiss();
+                    }
+                });
+    }
+
     public void save(View v){
         loading = ProgressDialog.show(this, null, "Please wait...", true, false);
         validatorSave();
 //        update();
     }
 
-    private void update(final String name, final String phone, final String address, final String birthdate, final String email) {
-        mApiService.uptRequest(name,email,birthdate,phone,address)
+    private void update(final String name, final String phone, final String address, final String birthdate, final String email, final MultipartBody.Part pp, final RequestBody ppName, final MultipartBody.Part ic, final RequestBody icName) {
+        mApiService.uptRequest(name,email,birthdate,phone,address,pp,ppName,ic,icName)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -275,9 +367,11 @@ public class EditAccountActivity extends AppCompatActivity {
             }
             if (iTag.equals("pp")) {
                 imgPP.setImageBitmap(bitmap);
+                tmpImgPP = bitmap;
                 iTag = null;
             } else if (iTag.equals("ic")) {
                 imgIC.setImageBitmap(bitmap);
+                tmpImgIC = bitmap;
                 imgIC.setVisibility(View.VISIBLE);
                 iTag = null;
             }
@@ -285,4 +379,23 @@ public class EditAccountActivity extends AppCompatActivity {
 
     }
 
+    private File createTempFile(Bitmap bitmap) {
+        File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+                , System.currentTimeMillis() +"_image.png");
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.PNG,0, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        //write the bytes in file
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
+    }
 }

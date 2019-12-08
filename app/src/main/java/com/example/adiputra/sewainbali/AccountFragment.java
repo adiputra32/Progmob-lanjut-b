@@ -92,8 +92,8 @@ public class AccountFragment extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loading = ProgressDialog.show(requireContext(), null, "Please wait...", true, false);
-                edit();
+                Intent intent = new Intent(requireActivity(),EditAccountActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -156,53 +156,6 @@ public class AccountFragment extends Fragment {
                 setStatus();
             }
         }
-    }
-
-    private void edit() {
-        mApiService.editRequest(email)
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
-                            Log.i("debug", "onResponse: BERHASIL");
-                            loading.dismiss();
-                            try {
-                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                String error = jsonRESULTS.getString("error");
-                                if (error.equals("false")){
-//                                    Toast.makeText(requireContext(), "BERHASIL REGISTRASI", Toast.LENGTH_SHORT).show();
-                                    String name = jsonRESULTS.getJSONObject("user").getString("nama");
-                                    String birthdate = jsonRESULTS.getJSONObject("user").getString("birthdate");
-                                    String phone = jsonRESULTS.getJSONObject("user").getString("phone");
-                                    String address = jsonRESULTS.getJSONObject("user").getString("address");
-                                    Intent intent = new Intent(requireActivity(),EditAccountActivity.class);
-                                    intent.putExtra("NAME", name);
-                                    intent.putExtra("BIRTHDATE", birthdate);
-                                    intent.putExtra("PHONE", phone);
-                                    intent.putExtra("ADDRESS", address);
-                                    startActivity(intent);
-                                } else {
-                                    String error_message = jsonRESULTS.getString("error_msg");
-                                    Toast.makeText(requireContext(), error_message, Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Log.i("debug", "onResponse: GA BERHASIL");
-                            loading.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("debug", "onFailure: ERROR > " + t.getMessage());
-                        Toast.makeText(requireContext(), "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
-                        loading.dismiss();
-                    }
-                });
     }
 
     private void getExternalStorageText(){

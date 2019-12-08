@@ -1,23 +1,32 @@
 package com.example.adiputra.sewainbali;
 
 public class MostSearched {
-    private int gambar;
-    private String namaMotor, jenis, harga, pemilik;
+//    private int gambar;
+    private String idMotor, gambarMotor, namaMotor, jenis, harga, pemilik;
 
-    public MostSearched(int gambar, String namaMotor, String jenis, String harga, String pemilik){
-        this.gambar = gambar;
+    public MostSearched(String idMotor, String gambarMotor, String namaMotor, String jenis, String harga, String pemilik){
+        this.idMotor = idMotor;
+        this.gambarMotor = gambarMotor;
         this.namaMotor = namaMotor;
         this.jenis = jenis;
         this.harga = harga;
         this.pemilik = pemilik;
     }
 
-    public int getGambar() {
-        return gambar;
+    public String getIdMotor() {
+        return idMotor;
     }
 
-    public void setGambar(int gambar) {
-        this.gambar = gambar;
+    public void setIdMotor(String idMotor) {
+        this.idMotor = idMotor;
+    }
+
+    public String getGambarMotor() {
+        return gambarMotor;
+    }
+
+    public void setGambarMotor(String gambarMotor) {
+        this.gambarMotor = gambarMotor;
     }
 
     public String getNamaMotor() {
