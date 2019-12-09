@@ -191,6 +191,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
                 android:padding="15dp"
+                android:inputType="text"
                 android:fontFamily="@font/roboto_regular"
                 android:background="@drawable/et_login_custom"
                 android:textSize="15sp"

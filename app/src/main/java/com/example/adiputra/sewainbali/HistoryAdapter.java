@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private ArrayList<History> dataList;
+    private View view;
 
     public HistoryAdapter(ArrayList<History> dataList) {
         this.dataList = dataList;
@@ -22,19 +25,19 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_history, parent, false);
+        view = layoutInflater.inflate(R.layout.list_history, parent, false);
         return new HistoryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
-        holder.imgMotor.setImageResource(dataList.get(position).getGambar());
+        Glide.with(view.getContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+dataList.get(position).getGambar()).into(holder.imgMotor);
         holder.txtNama.setText(dataList.get(position).getNama());
         holder.txtPemilik.setText(dataList.get(position).getPemilik());
         holder.txtJenis.setText(dataList.get(position).getJenis());
         holder.txtStatus.setText(dataList.get(position).getStatus());
 
-        if (holder.txtStatus.getText().toString().equals("Sukses")){
+        if (holder.txtStatus.getText().toString().equals("Success")){
             holder.txtStatus.setTextColor(Color.parseColor("#8BC34A"));
         } else {
             holder.txtStatus.setTextColor(Color.parseColor("#cf3e3e"));

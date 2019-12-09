@@ -16,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.adiputra.sewainbali.apiHelper.BaseApiService;
 import com.example.adiputra.sewainbali.apiHelper.UtilsApi;
 
@@ -53,6 +55,7 @@ public class AccountFragment extends Fragment {
     private ProgressDialog loading;
     private BaseApiService mApiService;
     private String email;
+    private ImageView imgPP;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -72,6 +75,7 @@ public class AccountFragment extends Fragment {
         tvAlamat = (TextView) view.findViewById(R.id.tv_account_alamat);
         tvStatusActive = (TextView) view.findViewById(R.id.tv_status_acc);
         tvStatus = (TextView) view.findViewById(R.id.tv_acc);
+        imgPP = (ImageView) view.findViewById(R.id.img_pp);
 
         email = Preferences.getLoggedInUser(requireActivity().getBaseContext());
         tvNama.setText(Preferences.getKeyNameTeregister(requireActivity().getBaseContext()));
@@ -118,10 +122,12 @@ public class AccountFragment extends Fragment {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("error").equals("false")){
                                     tvAlamat.setText(jsonRESULTS.getString("address"));
+                                    Glide.with(requireContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+jsonRESULTS.getString("photo_profile")).into(imgPP);
                                     setStatus();
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     tvAlamat.setText(jsonRESULTS.getString("address"));
+                                    Glide.with(requireContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+jsonRESULTS.getString("photo_profile")).into(imgPP);
                                     Log.d("errorAPI", "errornya : " + error_message);
                                 }
                             } catch (JSONException e) {

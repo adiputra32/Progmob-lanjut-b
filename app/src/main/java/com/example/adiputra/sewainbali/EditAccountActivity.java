@@ -1,6 +1,5 @@
 package com.example.adiputra.sewainbali;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -16,7 +15,6 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -24,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.adiputra.sewainbali.apiHelper.BaseApiService;
 import com.example.adiputra.sewainbali.apiHelper.UtilsApi;
 
@@ -35,8 +36,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.RequiresApi;
@@ -140,7 +144,16 @@ public class EditAccountActivity extends AppCompatActivity {
         String name = edt_name.getText().toString();
         String phone = edt_phone.getText().toString();
         String address = edt_address.getText().toString();
-        String birthdate = edt_birthdate.getText().toString();
+//        String birthdate = edt_birthdate.getText().toString();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateBD = null;
+        try {
+            dateBD = sdf.parse(edt_birthdate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String birthdate = df.format(dateBD);
         String email = edt_email.getText().toString();
         File ppFile = null,icFile = null;
         MultipartBody.Part ppMultipart = null, icMultipart = null;
@@ -284,6 +297,7 @@ public class EditAccountActivity extends AppCompatActivity {
     }
 
     private void update(final String name, final String phone, final String address, final String birthdate, final String email, final MultipartBody.Part pp, final RequestBody ppName, final MultipartBody.Part ic, final RequestBody icName) {
+        Log.d("birthdate","is : " + birthdate);
         mApiService.uptRequest(name,email,birthdate,phone,address,pp,ppName,ic,icName)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -352,6 +366,9 @@ public class EditAccountActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        RequestOptions myOptions = new RequestOptions()
+                .fitCenter() // or centerCrop
+                .override(200, 200);
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
@@ -366,12 +383,43 @@ public class EditAccountActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (iTag.equals("pp")) {
-                imgPP.setImageBitmap(bitmap);
-                tmpImgPP = bitmap;
+                Glide.with(this)
+                        .asBitmap()
+                        .apply(myOptions)
+                        .load(bitmap)
+                        .into(imgPP);
+//                imgPP.setImageBitmap(bitmap);
+
+                Glide.with(this)
+                        .asBitmap()
+                        .apply(myOptions)
+                        .load(bitmap)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                                tmpImgPP = resource;
+                            }
+                        });
+
                 iTag = null;
             } else if (iTag.equals("ic")) {
-                imgIC.setImageBitmap(bitmap);
-                tmpImgIC = bitmap;
+                Glide.with(this)
+                        .asBitmap()
+                        .apply(myOptions)
+                        .load(bitmap)
+                        .into(imgIC);
+//                imgIC.setImageBitmap(bitmap);
+
+                Glide.with(this)
+                        .asBitmap()
+                        .apply(myOptions)
+                        .load(bitmap)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                                tmpImgIC = resource;
+                            }
+                        });
                 imgIC.setVisibility(View.VISIBLE);
                 iTag = null;
             }

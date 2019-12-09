@@ -64,4 +64,7 @@ public interface BaseApiService {
     @GET("getMotorMostViewed.php")
     Call<ResponseBody> motorMostViewedRequest(@Query("jumlah") int jumlah,
                                               @Query("tambah") int tambah);
+
+    @GET("lihatHistorySemua.php")
+    Call<ResponseBody> historyLobbyRequest(@Query("email") String email);
 }

@@ -1,13 +1,15 @@
 package com.example.adiputra.sewainbali;
 
 public class History {
-    private int gambar;
+    private String id;
+    private String gambar;
     private String nama;
     private String pemilik;
     private String jenis;
     private String status;
 
-    public History(int gambar, String nama, String pemilik, String jenis, String status){
+    public History(String id, String gambar, String nama, String pemilik, String jenis, String status){
+        this.id = id;
         this.gambar = gambar;
         this.nama = nama;
         this.pemilik = pemilik;
@@ -15,11 +17,19 @@ public class History {
         this.status = status;
     }
 
-    public int getGambar() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getGambar() {
         return gambar;
     }
 
-    public void setGambar(int gambar) {
+    public void setGambar(String gambar) {
         this.gambar = gambar;
     }
 
