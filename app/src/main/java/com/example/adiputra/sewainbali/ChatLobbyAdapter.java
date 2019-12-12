@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ChatLobbyAdapter extends RecyclerView.Adapter<ChatLobbyAdapter.ChatLobbyViewHolder> {
     private ArrayList<ChatLobby> dataList;
+    private View view;
 
     public ChatLobbyAdapter(ArrayList<ChatLobby> dataList) {
         this.dataList = dataList;
@@ -22,22 +25,24 @@ public class ChatLobbyAdapter extends RecyclerView.Adapter<ChatLobbyAdapter.Chat
     @Override
     public ChatLobbyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.list_chat_lobby, parent, false);
+        view = layoutInflater.inflate(R.layout.list_chat_lobby, parent, false);
         return new ChatLobbyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ChatLobbyViewHolder holder, int position) {
-        holder.imgProfile.setImageResource(dataList.get(position).getGambar());
+        Glide.with(view.getContext()).load("https://kelompok23.000webhostapp.com/images/"+dataList.get(position).getGambar()).placeholder(R.drawable.user).into(holder.imgProfile);
         holder.txtNama.setText(dataList.get(position).getNama());
-        holder.txtPesan.setText(dataList.get(position).getPesan());
+        holder.email = dataList.get(position).getEmail();
         holder.mView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ChatRoomActivity.class);
 //                intent.putExtra("NAMA",holder.txtNama.getText());
+                intent.putExtra("NAMA",holder.txtNama.getText().toString());
+                intent.putExtra("EMAIL",holder.email);
                 view.getContext().startActivity(intent);
-                Log.d("debug","nama : " + holder.txtNama.getText());
+//                Log.d("debug","nama : " + holder.txtNama.getText());
             }
         });
     }
@@ -50,6 +55,7 @@ public class ChatLobbyAdapter extends RecyclerView.Adapter<ChatLobbyAdapter.Chat
     public class ChatLobbyViewHolder extends RecyclerView.ViewHolder{
         TextView txtNama, txtPesan;
         ImageView imgProfile;
+        String email;
         View mView;
 
         public ChatLobbyViewHolder(View itemView) {

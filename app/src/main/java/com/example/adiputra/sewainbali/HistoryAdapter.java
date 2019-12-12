@@ -2,6 +2,7 @@ package com.example.adiputra.sewainbali;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,24 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     }
 
     @Override
-    public void onBindViewHolder(HistoryViewHolder holder, int position) {
-        Glide.with(view.getContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+dataList.get(position).getGambar()).into(holder.imgMotor);
+    public void onBindViewHolder(final HistoryViewHolder holder, int position) {
+        holder.idSewa = dataList.get(position).getId();
         holder.txtNama.setText(dataList.get(position).getNama());
         holder.txtPemilik.setText(dataList.get(position).getPemilik());
         holder.txtJenis.setText(dataList.get(position).getJenis());
         holder.txtStatus.setText(dataList.get(position).getStatus());
+
+        Drawable jenis;
+        if (holder.txtJenis.getText().toString().equals("Matic")) jenis = view.getResources().getDrawable(R.drawable.jenis_matic_2);
+        else if (holder.txtJenis.getText().toString().equals("Standard")) jenis = view.getResources().getDrawable(R.drawable.jenis_standard);
+        else if (holder.txtJenis.getText().toString().equals("Sport")) jenis = view.getResources().getDrawable(R.drawable.jenis_sport);
+        else if (holder.txtJenis.getText().toString().equals("Trail")) jenis = view.getResources().getDrawable(R.drawable.jenis_trail);
+        else  jenis = view.getResources().getDrawable(R.drawable.jenis_matic);
+
+        Glide.with(view.getContext())
+                .load("https://kelompok23.000webhostapp.com/images/"+dataList.get(position).getGambar())
+                .placeholder(jenis)
+                .into(holder.imgMotor);
 
         if (holder.txtStatus.getText().toString().equals("Success")){
             holder.txtStatus.setTextColor(Color.parseColor("#8BC34A"));
@@ -48,6 +61,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailHistoryActivity.class);
 //                intent.putExtra("NAMA",holder.txtNama.getText());
+                intent.putExtra("IDSEWA2",holder.idSewa);
                 view.getContext().startActivity(intent);
             }
         });
@@ -61,6 +75,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public class HistoryViewHolder extends RecyclerView.ViewHolder{
         private TextView txtNama, txtPemilik, txtJenis, txtStatus;
         private ImageView imgMotor;
+        String idSewa;
         View mView;
 
         public HistoryViewHolder(View itemView) {

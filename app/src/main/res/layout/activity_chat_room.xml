@@ -5,38 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp"
     android:weightSum="1"
+    android:background="#ffffff"
     tools:context=".ChatRoomActivity">
 
-    <ScrollView
-        android:layout_width="378dp"
-        android:layout_height="157dp"
-        android:id="@+id/scrollView"
-        android:layout_alignParentTop="true"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1.04"
-        android:layout_alignParentLeft="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/textView" />
-    </ScrollView>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:weightSum="1">
         <EditText
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:id="@+id/editText"
             android:layout_alignTop="@+id/button"
             android:layout_weight="1.02"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/button" />
+            android:layout_toLeftOf="@+id/button"
+            android:hint="Message.."
+            android:paddingLeft="10dp"
+            android:background="#FFFFFF"/>
 
         <Button
             android:layout_width="52dp"

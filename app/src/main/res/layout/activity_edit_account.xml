@@ -182,23 +182,34 @@
                 android:fontFamily="@font/roboto_regular"
                 tools:targetApi="jelly_bean"/>
 
-            <EditText
-                android:id="@+id/et_birthdate"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Birth Date"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
-                android:padding="15dp"
-                android:inputType="text"
-                android:fontFamily="@font/roboto_regular"
-                android:background="@drawable/et_login_custom"
-                android:textSize="15sp"
-                android:focusable="false"
-                android:longClickable="false"
-                android:onClick="birthdate"
-                tools:targetApi="jelly_bean" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvBD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingLeft="15dp"
+                    android:textSize="15sp"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentLeft="true"/>
+
+                <ImageButton
+                    android:id="@+id/btn_date_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:onClick="birthdate"
+                    app:srcCompat="@drawable/ic_date_range_black_24dp"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"

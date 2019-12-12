@@ -28,6 +28,7 @@
             android:paddingTop="20dp">
 
             <ImageView
+                android:id="@+id/img_motor"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/motor1"
@@ -90,6 +91,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ly_payment_stts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -99,6 +101,7 @@
             android:paddingTop="12dp">
 
             <TextView
+                android:id="@+id/tv_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="12dp"
@@ -124,6 +127,7 @@
                 android:layout_marginLeft="12dp">
 
                 <TextView
+                    android:id="@+id/tv_payment_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Waiting fot payment"
@@ -133,10 +137,11 @@
                     android:textSize="12sp"/>
 
                 <TextView
+                    android:id="@+id/tv_payment_limit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
-                    android:text="24 hours left"
+                    android:text="1 day left"
                     android:textStyle="italic"
                     android:textColor="#cf3e3e"
                     android:fontFamily="@font/roboto_regular"
@@ -147,6 +152,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ly_payment_proof"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -180,6 +186,7 @@
                 android:layout_marginLeft="12dp">
 
                 <TextView
+                    android:id="@+id/tv_payment_proof"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -205,6 +212,7 @@
                     android:background="@drawable/btn_gradient"
                     android:visibility="visible"
                     android:elevation="1dp"
+                    android:onClick="uploadPP"
                     tools:targetApi="lollipop"/>
 
                 <Button
@@ -312,13 +320,13 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
+                android:id="@+id/tv_lokasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginLeft="12dp"
                 android:maxLines="3"
-                android:text="Ngurah Rai Airport"
                 android:textStyle="normal"
                 android:textColor="#000000"
                 android:fontFamily="@font/roboto_regular"
@@ -362,11 +370,38 @@
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="-"
+                    android:textColor="#2B2B2B"
+                    android:fontFamily="@font/roboto_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="22dp">
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
                     android:text="Days for Rent"
                     android:textColor="#2B2B2B"
                     android:fontFamily="@font/roboto_regular"/>
 
                 <TextView
+                    android:id="@+id/tv_days"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -392,6 +427,7 @@
                     android:fontFamily="@font/roboto_regular"/>
 
                 <TextView
+                    android:id="@+id/tv_harga_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -417,6 +453,7 @@
                     android:fontFamily="@font/roboto_regular"/>
 
                 <TextView
+                    android:id="@+id/tv_denda"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -442,6 +479,7 @@
                     android:fontFamily="@font/roboto_regular"/>
 
                 <TextView
+                    android:id="@+id/tv_asuransi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -474,6 +512,7 @@
                     android:fontFamily="@font/roboto_regular"/>
 
                 <TextView
+                    android:id="@+id/tv_harga_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -528,6 +567,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:background="@drawable/btn_gradient_red"
                 android:elevation="1dp"
+                android:onClick="cancelOrder"
                 tools:targetApi="lollipop"
                 android:visibility="visible"/>
 

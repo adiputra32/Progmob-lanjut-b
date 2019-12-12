@@ -63,8 +63,43 @@ public interface BaseApiService {
 
     @GET("getMotorMostViewed.php")
     Call<ResponseBody> motorMostViewedRequest(@Query("jumlah") int jumlah,
-                                              @Query("tambah") int tambah);
+                                              @Query("tambah") int tambah,
+                                              @Query("email") String email);
 
     @GET("lihatHistorySemua.php")
     Call<ResponseBody> historyLobbyRequest(@Query("email") String email);
+
+    @GET("getMotor.php")
+    Call<ResponseBody> motorRequest(@Query("jumlah") int jumlah,
+                                    @Query("tambah") int tambah,
+                                    @Query("kategori") String kategori,
+                                    @Query("email") String email);
+
+    @GET("getMotorSingle.php")
+    Call<ResponseBody> motorDetailRequest(@Query("id_motor") String id_motor);
+
+    @GET("lihatHistory.php")
+    Call<ResponseBody> historyDetailRequest(@Query("id_sewa") String id_sewa);
+
+    @FormUrlEncoded
+    @POST("tambahSewa.php")
+    Call<ResponseBody> tambahSewaRequest(@Field("email") String email,
+                                             @Field("id_motor") String id_motor,
+                                             @Field("location") String location,
+                                             @Field("days") String days,
+                                             @Field("payment") String payment,
+                                             @Field("tanggal") String tanggal);
+
+    @Multipart
+    @POST("updatePembayaran.php")
+    Call<ResponseBody> uploadPPRequest(@Part("id_sewa") String id_sewa,
+                                  @Part MultipartBody.Part ppimage,
+                                  @Part("ppimage") RequestBody ppimagename);
+
+    @FormUrlEncoded
+    @POST("batalSewa.php")
+    Call<ResponseBody> cancelOrderRequest(@Field("id_sewa") String id_sewa);
+
+    @GET("getChat.php")
+    Call<ResponseBody> chatRequest(@Query("email") String email);
 }

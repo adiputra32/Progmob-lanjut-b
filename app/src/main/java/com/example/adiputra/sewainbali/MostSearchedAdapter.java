@@ -1,6 +1,7 @@
 package com.example.adiputra.sewainbali;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class MostSearchedAdapter extends RecyclerView.Adapter<MostSearchedAdapte
     }
 
     @Override
-    public void onBindViewHolder(final MostSearchedViewHolder holder, int position) {
+    public void onBindViewHolder(final MostSearchedViewHolder holder, final int position) {
 //        holder.imgMotor.setImageResource(dataList.get(position).getGambarMotor());
         double harga = Double.parseDouble(dataList.get(position).getHarga());
 
@@ -44,17 +45,30 @@ public class MostSearchedAdapter extends RecyclerView.Adapter<MostSearchedAdapte
         String price = formatRupiah.format((double)harga) + "/day";
 
         holder.idMotor = dataList.get(position).getIdMotor();
-        Glide.with(view.getContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+dataList.get(position).getGambarMotor()).into(holder.imgMotor);
         holder.txtNama.setText(dataList.get(position).getNamaMotor());
         holder.txtJenis.setText(dataList.get(position).getJenis());
         holder.txtHarga.setText(price);
         holder.txtPemilik.setText(dataList.get(position).getPemilik());
+
+        Drawable jenis;
+        if (holder.txtJenis.getText().toString().equals("Matic")) jenis = view.getResources().getDrawable(R.drawable.jenis_matic_2);
+        else if (holder.txtJenis.getText().toString().equals("Standard")) jenis = view.getResources().getDrawable(R.drawable.jenis_standard);
+        else if (holder.txtJenis.getText().toString().equals("Sport")) jenis = view.getResources().getDrawable(R.drawable.jenis_sport);
+        else if (holder.txtJenis.getText().toString().equals("Trail")) jenis = view.getResources().getDrawable(R.drawable.jenis_trail);
+        else  jenis = view.getResources().getDrawable(R.drawable.jenis_matic);
+        
+        Glide.with(view.getContext())
+                .load("https://kelompok23.000webhostapp.com/images/"+dataList.get(position).getGambarMotor())
+                .placeholder(jenis)
+                .into(holder.imgMotor);
 
         holder.mView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), DetailMotorActivity.class);
 //                intent.putExtra("NAMA",holder.txtNama.getText());
+                intent.putExtra("IDMOTOR",holder.idMotor);
+                intent.putExtra("GBRMOTOR",dataList.get(position).getGambarMotor());
                 view.getContext().startActivity(intent);
             }
         });

@@ -143,7 +143,33 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:maxLines="1"
-                    android:text="New Honda CBR"
+                    android:text="-"
+                    android:textSize="12sp"
+                    android:textColor="#CC000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="Type"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/roboto_regular"/>
+
+                <TextView
+                    android:id="@+id/tv_jenis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:maxLines="1"
+                    android:text="-"
                     android:textSize="12sp"
                     android:textColor="#CC000000"
                     android:fontFamily="@font/roboto_regular"/>
@@ -169,7 +195,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:maxLines="1"
-                    android:text="2018"
+                    android:text="-"
                     android:textSize="12sp"
                     android:textColor="#CC000000"
                     android:fontFamily="@font/roboto_regular"/>
@@ -195,7 +221,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:maxLines="1"
-                    android:text="Black"
+                    android:text="-"
                     android:textSize="12sp"
                     android:textColor="#CC000000"
                     android:fontFamily="@font/roboto_regular"/>
@@ -221,7 +247,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:maxLines="1"
-                    android:text="250 CC"
+                    android:text="-"
                     android:textSize="12sp"
                     android:textColor="#CC000000"
                     android:fontFamily="@font/roboto_regular"/>
@@ -247,7 +273,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:maxLines="1"
-                    android:text="Pertamax"
+                    android:text="-"
                     android:textSize="12sp"
                     android:textColor="#CC000000"
                     android:fontFamily="@font/roboto_regular"/>
@@ -273,7 +299,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:maxLines="1"
-                    android:text="2 unit"
+                    android:text="-"
                     android:textSize="12sp"
                     android:textColor="#CC000000"
                     android:fontFamily="@font/roboto_regular"/>
@@ -321,7 +347,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:maxLines="20"
-                android:text="motor baru bos ini motor baru motor baru bos ini motor baru motor \n baru bos ini motor baru motor baru bos ini motor baru motor baru bos\n ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru motor baru bos ini motor baru "
+                android:text="Hello there! My owner forgot to describe me :( but you can still send me to checkout with the Checkout button below"
                 android:textSize="13sp"/>
 
         </RelativeLayout>
@@ -369,6 +395,10 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/gambarnya"
+            android:layout_width="1dp"
+            android:layout_height="1dp"/>
     </LinearLayout>
 
 </ScrollView>

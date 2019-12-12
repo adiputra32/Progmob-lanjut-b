@@ -16,9 +16,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -63,6 +65,8 @@ public class EditAccountActivity extends AppCompatActivity {
     ImageView imgIC;
     Bitmap bitmap,tmpImgPP,tmpImgIC;
     EditText edt_birthdate, edt_name, edt_email, edt_phone, edt_address;
+    TextView tvBirthdate;
+    Button btnIdCard;
     Calendar myCalendar = Calendar.getInstance();
     Cursor cursor;
     DatabaseHandler dbHandler;
@@ -78,11 +82,13 @@ public class EditAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_account);
         imgPP = (CircleImageView) findViewById(R.id.img_profile);
         imgIC = (ImageView) findViewById(R.id.img_id_card);
-        edt_birthdate = (EditText) findViewById(R.id.et_birthdate);
+//        edt_birthdate = (EditText) findViewById(R.id.et_birthdate);
         edt_name = (EditText) findViewById(R.id.et_name);
         edt_email = (EditText) findViewById(R.id.et_phone);
         edt_phone = (EditText) findViewById(R.id.et_password);
         edt_address = (EditText) findViewById(R.id.et_address);
+        btnIdCard = (Button) findViewById(R.id.btn_id_card);
+        tvBirthdate = (TextView) findViewById(R.id.tvBD);
 
         mApiService = UtilsApi.getAPIService();
         getWindow().setStatusBarColor(Color.parseColor("#262ca6"));
@@ -133,29 +139,23 @@ public class EditAccountActivity extends AppCompatActivity {
         String myCalFormat = "yyyy-MM-dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myCalFormat, Locale.ROOT);
 
-        edt_birthdate.setText(sdf.format(myCalendar.getTime()));
+//        edt_birthdate.setText(sdf.format(myCalendar.getTime()));
+        tvBirthdate.setText(sdf.format(myCalendar.getTime()));
+//        Log.d("birthdateku", edt_birthdate.getText().toString());
     }
 
     public void validatorSave(){
         edt_name.setError(null);
+        edt_phone.setError(null);
         View fokus = null;
         boolean cancel = false;
 
         String name = edt_name.getText().toString();
         String phone = edt_phone.getText().toString();
         String address = edt_address.getText().toString();
-//        String birthdate = edt_birthdate.getText().toString();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateBD = null;
-        try {
-            dateBD = sdf.parse(edt_birthdate.getText().toString());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String birthdate = df.format(dateBD);
+        String birthdate = tvBirthdate.getText().toString();
         String email = edt_email.getText().toString();
-        File ppFile = null,icFile = null;
+        File ppFile,icFile;
         MultipartBody.Part ppMultipart = null, icMultipart = null;
         RequestBody ppName = null, icName = null;
 
@@ -178,20 +178,29 @@ public class EditAccountActivity extends AppCompatActivity {
         }
 
         if (TextUtils.isEmpty(phone)){
-            phone = null;
+            edt_phone.setError("This field is required");
+            fokus = edt_phone;
+            cancel = true;
         }
 
-        if (TextUtils.isEmpty(address)){
-            address = null;
-        }
+//        if (TextUtils.isEmpty(address)){
+//            edt_address.setError("This field is required");
+//            fokus = edt_address;
+//            cancel = true;
+//        }
 
-        if (TextUtils.isEmpty(birthdate)){
-            birthdate = null;
-        }
+//        if (TextUtils.isEmpty(birthdate2)){
+//            edt_birthdate.setError("This field is required");
+//            fokus = edt_birthdate;
+//            cancel = true;
+//        }
 
         if (cancel){
             fokus.requestFocus();
+            loading.dismiss();
         }else {
+//            birthdate = "2019-12-12";
+//            String bDate = tvBirthdate.getText().toString();
             update(name,phone,address,birthdate,email,ppMultipart,ppName,icMultipart,icName);
         }
     }
@@ -228,42 +237,45 @@ public class EditAccountActivity extends AppCompatActivity {
                                 if (error.equals("false")){
 //                                    Toast.makeText(requireContext(), "BERHASIL REGISTRASI", Toast.LENGTH_SHORT).show();
                                     String name = jsonRESULTS.getJSONObject("user").getString("nama");
-                                    String birthdate = "kosong";
-                                    String phone = "kosong";
-                                    String address = "kosong";
-                                    String photoProfile = "kosong";
-                                    String idCard = "kosong";
+                                    String birthdate;
+                                    String phone;
+                                    String address;
+                                    String photoProfile;
+                                    String idCard;
 
                                     if (!jsonRESULTS.getJSONObject("user").isNull("birthdate")){
                                         birthdate = jsonRESULTS.getJSONObject("user").getString("birthdate");
+                                        if (!birthdate.equals("")) tvBirthdate.setText(birthdate);
                                     }
 
                                     if (!jsonRESULTS.getJSONObject("user").isNull("phone")){
                                         phone = jsonRESULTS.getJSONObject("user").getString("phone");
+                                        if (!phone.equals("")) edt_phone.setText(phone);
                                     }
 
                                     if (!jsonRESULTS.getJSONObject("user").isNull("address")){
                                         address = jsonRESULTS.getJSONObject("user").getString("address");
+                                        if (!address.equals("")) edt_address.setText(address);
                                     }
 
                                     if (!jsonRESULTS.getJSONObject("user").isNull("photo_profile")){
                                         photoProfile = jsonRESULTS.getJSONObject("user").getString("photo_profile");
+                                        Glide.with(EditAccountActivity.this)
+                                                .load("https://kelompok23.000webhostapp.com/images/"+photoProfile)
+                                                .placeholder(R.drawable.user)
+                                                .into(imgPP);
                                     }
 
                                     if (!jsonRESULTS.getJSONObject("user").isNull("id_card")){
                                         idCard = jsonRESULTS.getJSONObject("user").getString("id_card");
+                                        Glide.with(EditAccountActivity.this)
+                                                .load("https://kelompok23.000webhostapp.com/images/"+idCard)
+                                                .into(imgIC);
+                                        imgIC.setVisibility(View.VISIBLE);
+                                        btnIdCard.setVisibility(View.GONE);
                                     }
 
                                     edt_name.setText(name);
-                                    if (!birthdate.equals("")) edt_birthdate.setText(birthdate);
-                                    if (!address.equals("")) edt_address.setText(address);
-                                    if (!phone.equals("")) edt_phone.setText(phone);
-                                    if (!photoProfile.equals("")){
-                                        Glide.with(EditAccountActivity.this).load("https://sewainbali.000webhostapp.com/sewain/images/"+photoProfile).into(imgPP);
-                                    }
-                                    if (!idCard.equals("")){
-                                        Glide.with(EditAccountActivity.this).load("https://sewainbali.000webhostapp.com/sewain/images/"+idCard).into(imgIC);
-                                    }
                                     edt_email.setText(Preferences.getLoggedInUser(EditAccountActivity.this));
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");

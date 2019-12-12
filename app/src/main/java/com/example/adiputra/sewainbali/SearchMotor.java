@@ -1,10 +1,11 @@
 package com.example.adiputra.sewainbali;
 
 public class SearchMotor {
-    private int gambar;
-    private String namaMotor, jenis, harga, pemilik;
+//    private int gambar;
+    private String idMotor, gambar, namaMotor, jenis, harga, pemilik;
 
-    public SearchMotor(int gambar, String namaMotor, String jenis, String harga, String pemilik){
+    public SearchMotor(String idMotor, String gambar, String namaMotor, String jenis, String harga, String pemilik){
+        this.idMotor = idMotor;
         this.gambar = gambar;
         this.namaMotor = namaMotor;
         this.jenis = jenis;
@@ -12,11 +13,19 @@ public class SearchMotor {
         this.pemilik = pemilik;
     }
 
-    public int getGambar() {
+    public String getIdMotor() {
+        return idMotor;
+    }
+
+    public void setIdMotor(String idMotor) {
+        this.idMotor = idMotor;
+    }
+
+    public String getGambar() {
         return gambar;
     }
 
-    public void setGambar(int gambar) {
+    public void setGambar(String gambar) {
         this.gambar = gambar;
     }
 

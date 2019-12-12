@@ -76,6 +76,12 @@
                     android:fontFamily="@font/roboto_regular"
                     tools:targetApi="jelly_bean" />
 
+                <TextView
+                    android:id="@+id/tv_id_motor"
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
+                    android:visibility="invisible"/>
+
             </LinearLayout>
 
         </LinearLayout>

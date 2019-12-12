@@ -17,9 +17,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.adiputra.sewainbali.apiHelper.BaseApiService;
 import com.example.adiputra.sewainbali.apiHelper.UtilsApi;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import okhttp3.ResponseBody;
@@ -92,6 +98,15 @@ public class RegisterFragment extends Fragment {
                                 String error = jsonRESULTS.getString("error");
                                 if (error.equals("false")){
                                     Toast.makeText(requireContext(), "Your account has been registered successfully!", Toast.LENGTH_SHORT).show();
+
+//                                    DatabaseReference root = FirebaseDatabase.getInstance().getReference().getRoot();
+//                                    Map<String,Object> map = new HashMap<String,Object>();
+//                                    String email_tujuan = edtEmail.getText().toString();
+//                                    email_tujuan = email_tujuan.replace("@","");
+//                                    email_tujuan = email_tujuan.replace(".","");
+//                                    map.put(email_tujuan,"");
+//                                    root.updateChildren(map);
+
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     Toast.makeText(requireContext(), error_message, Toast.LENGTH_SHORT).show();

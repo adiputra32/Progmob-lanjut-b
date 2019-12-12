@@ -9,6 +9,7 @@ public class Preferences {
     private static final String KEY_NAME_TEREGISTER ="name", KEY_USER_TEREGISTER ="user", KEY_PASS_TEREGISTER ="pass";
     private static final String KEY_USERNAME_SEDANG_LOGIN = "Username_logged_in";
     private static final String KEY_STATUS_SEDANG_LOGIN = "Status_logged_in";
+    private static final String KEY_STATUS_AKTIF = "status";
 
     /** Pendlakarasian Shared Preferences yang berdasarkan paramater context, mutator */
     private static SharedPreferences getSharedPreference(Context context){
@@ -65,11 +66,22 @@ public class Preferences {
         return getSharedPreference(context).getString(KEY_NAME_TEREGISTER,"");
     }
 
+    public static void setKeyStatusAktif(Context context, String name){
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_STATUS_AKTIF, name);
+        editor.apply();
+    }
+
+    public static String getKeyStatusAktif(Context context){
+        return getSharedPreference(context).getString(KEY_STATUS_AKTIF,"");
+    }
+
     public static void clearLoggedInUser (Context context){
         SharedPreferences.Editor editor = getSharedPreference(context).edit();
         editor.remove(KEY_NAME_TEREGISTER);
         editor.remove(KEY_USERNAME_SEDANG_LOGIN);
         editor.remove(KEY_STATUS_SEDANG_LOGIN);
+        editor.remove(KEY_STATUS_AKTIF);
         editor.apply();
     }
 

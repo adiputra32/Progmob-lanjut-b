@@ -1,21 +1,21 @@
 package com.example.adiputra.sewainbali;
 
 public class ChatLobby {
-    private int gambar;
+    private String email;
+    private String gambar;
     private String nama;
-    private String pesan;
 
-    public ChatLobby(int gambar, String nama, String pesan){
+    public ChatLobby(String email, String gambar, String nama){
+        this.email = email;
         this.gambar = gambar;
         this.nama = nama;
-        this.pesan = pesan;
     }
 
-    public int getGambar() {
+    public String getGambar() {
         return gambar;
     }
 
-    public void setGambar(int gambar) {
+    public void setGambar(String gambar) {
         this.gambar = gambar;
     }
 
@@ -27,11 +27,11 @@ public class ChatLobby {
         this.nama = nama;
     }
 
-    public String getPesan() {
-        return pesan;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPesan(String pesan) {
-        this.pesan = pesan;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

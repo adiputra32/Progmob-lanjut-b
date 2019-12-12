@@ -122,14 +122,19 @@ public class AccountFragment extends Fragment {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("error").equals("false")){
                                     tvAlamat.setText(jsonRESULTS.getString("address"));
-                                    Glide.with(requireContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+jsonRESULTS.getString("photo_profile")).into(imgPP);
+
                                     setStatus();
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     tvAlamat.setText(jsonRESULTS.getString("address"));
-                                    Glide.with(requireContext()).load("https://sewainbali.000webhostapp.com/sewain/images/"+jsonRESULTS.getString("photo_profile")).into(imgPP);
                                     Log.d("errorAPI", "errornya : " + error_message);
                                 }
+                                String gambar = jsonRESULTS.getString("photo_profile");
+
+                                Glide.with(requireContext())
+                                        .load("https://kelompok23.000webhostapp.com/images/"+gambar)
+                                        .into(imgPP);
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (IOException e) {

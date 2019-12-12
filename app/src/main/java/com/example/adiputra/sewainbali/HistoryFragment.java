@@ -72,7 +72,7 @@ public class HistoryFragment extends Fragment {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("error").equals("false")){
-                                    int jml = jsonRESULTS.names().length();
+                                    int jml = jsonRESULTS.getJSONArray("motor").length();
                                     for (int i = 0; i <= jml ; i++){
                                         String idSewa = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("id_sewa");
                                         String gambarMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("gambar_motor");
@@ -80,16 +80,22 @@ public class HistoryFragment extends Fragment {
                                         String name = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("name");
                                         String jenis_motor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("jenis_motor");
                                         String harga = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("harga");
-                                        String paymentStatus = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("status_pembayaran");
+                                        String rentStatus = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("status_sewa");
 
-                                        if (paymentStatus.equals("1")){
-                                            paymentStatus = "Success";
-                                        } else if (paymentStatus.equals("2")){
-                                            paymentStatus = "Waiting for Payment";
+                                        switch (rentStatus) {
+                                            case "Lunas":
+                                                rentStatus = "Success";
+                                                break;
+                                            case "Belum Lunas":
+                                                rentStatus = "Waiting for payment";
+                                                break;
+                                            case "Batal":
+                                                rentStatus = "Cancel";
+                                                break;
                                         }
 
                                         Log.d("lengthnya","i : " + i);
-                                        addData(idSewa,gambarMotor,merk,jenis_motor,harga,name,paymentStatus);
+                                        addData(idSewa,gambarMotor,merk,jenis_motor,harga,name,rentStatus);
                                     }
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");

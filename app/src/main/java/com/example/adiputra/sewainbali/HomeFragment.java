@@ -91,7 +91,9 @@ public class HomeFragment extends Fragment {
 
         loading = ProgressDialog.show(requireContext(), null, "Please wait...", true, false);
 
-        Glide.with(view.getContext()).load(getResources().getIdentifier("jenis_all","drawable",view.getContext().getPackageName())).into(imgAllBike);
+        Glide.with(view.getContext())
+                .load(getResources().getIdentifier("jenis_all","drawable",view.getContext().getPackageName()))
+                .into(imgAllBike);
         Glide.with(view.getContext()).load(getResources().getIdentifier("jenis_matic_2","drawable",view.getContext().getPackageName())).into(imgMatic);
         Glide.with(view.getContext()).load(getResources().getIdentifier("jenis_standard","drawable",view.getContext().getPackageName())).into(imgStandard);
         Glide.with(view.getContext()).load(getResources().getIdentifier("jenis_sport","drawable",view.getContext().getPackageName())).into(imgSport);
@@ -104,7 +106,8 @@ public class HomeFragment extends Fragment {
         requestStatus();
         mostSearchedArrayList = new ArrayList<>();
 //        addData();
-        getMotorMostViewedAwal(0,5);
+        final String email = Preferences.getLoggedInUser(requireContext());
+        getMotorMostViewedAwal(0,5,email);
 
         adapter = new MostSearchedAdapter(mostSearchedArrayList);
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -128,7 +131,7 @@ public class HomeFragment extends Fragment {
                         {
                             loadingRecyclerView = false;
                             Log.v("...", "Last Item Wow !");
-                            getMotorMostViewed(totalItemCount,5);
+                            getMotorMostViewed(totalItemCount,5,email);
                         }
                     }
                 }
@@ -185,6 +188,7 @@ public class HomeFragment extends Fragment {
         tvStatus.setText("Your Account is");
         tvStatusActive.setText("Active");
         tvStatusActive.setTextColor(Color.parseColor("#3bbc44"));
+        Preferences.setKeyStatusAktif(requireContext(),"Active");
     }
 
     private void requestStatus(){
@@ -201,6 +205,7 @@ public class HomeFragment extends Fragment {
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     Log.d("errorAPI", "errornya : " + error_message);
+                                    Preferences.setKeyStatusAktif(requireContext(),"Not Active");
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -208,7 +213,8 @@ public class HomeFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         } else {
-                            getStatusSqlite();
+//                            getStatusSqlite();
+                            loading.dismiss();
                         }
                     }
 
@@ -236,8 +242,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void getMotorMostViewed(int total, int tambah){
-        mApiService.motorMostViewedRequest(total,tambah)
+    private void getMotorMostViewed(int total, int tambah, String email){
+        mApiService.motorMostViewedRequest(total,tambah,email)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -246,7 +252,7 @@ public class HomeFragment extends Fragment {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("error").equals("false")){
-                                    int jml = jsonRESULTS.names().length();
+                                    int jml = jsonRESULTS.getJSONArray("motor").length();
                                     for (int i = 0; i <= jml ; i++){
                                         String idMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("id_motor");
                                         String gambarMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("gambar_motor");
@@ -282,8 +288,8 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-    private void getMotorMostViewedAwal(int total, int tambah){
-        mApiService.motorMostViewedRequest(total,tambah)
+    private void getMotorMostViewedAwal(int total, int tambah, String email){
+        mApiService.motorMostViewedRequest(total,tambah,email)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -297,7 +303,7 @@ public class HomeFragment extends Fragment {
 //                                    Toast.makeText(requireContext(), "hai " + jsonRESULTS.getJSONArray("motor").getJSONObject(0).getString("merk"), Toast.LENGTH_SHORT).show();
 //                                    Log.d("lengthnya","jml: "+jsonRESULTS.names().length());
 //                                    Log.d("lengthnya","ke 2: "+jsonRESULTS.getJSONObject("motor").optString("id_motor"));
-                                    int jml = jsonRESULTS.names().length();
+                                    int jml = jsonRESULTS.getJSONArray("motor").length();
                                     for (int i = 0; i <= jml ; i++){
                                         String idMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("id_motor");
                                         String gambarMotor = jsonRESULTS.getJSONArray("motor").getJSONObject(i).getString("gambar_motor");

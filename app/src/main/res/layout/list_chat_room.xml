@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:id="@+id/ly_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="5dp"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ly_user2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_chat_list"
+            android:gravity="right"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_msg_chat_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:layout_marginTop="2dp"
+                android:textStyle="normal"
+                android:textSize="14sp"
+                android:text="halo saya nam saya dsiap sjkjhasdm"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/roboto_regular"
+                tools:targetApi="jelly_bean" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="2dp"
+                android:background="#5BFFFFFF" />
+
+            <TextView
+                android:id="@+id/tv_name_chat_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textStyle="normal"
+                android:textSize="10sp"
+                android:text="Adi Putra"
+                android:maxLines="1"
+                android:fontFamily="@font/roboto_regular"
+                tools:targetApi="jelly_bean" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginRight="5dp"
+            card_view:srcCompat="@drawable/ic_check_black_24dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
