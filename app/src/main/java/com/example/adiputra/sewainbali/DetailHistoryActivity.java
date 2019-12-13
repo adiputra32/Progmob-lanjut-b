@@ -101,11 +101,11 @@ public class DetailHistoryActivity extends AppCompatActivity {
         idSewa = getIntent().getStringExtra("IDSEWA2");
         getDetailSewa(idSewa);
 
-        if (buktiPembayaran != null){
-            btnUpload.setText("Show");
-            tvPaymentProof.setText("Uploaded");
-            tvPaymentProof.setTextColor(Color.parseColor("#000000"));
-        }
+//        if (buktiPembayaran != null){
+//            btnUpload.setText("Show");
+//            tvPaymentProof.setText("Uploaded");
+//            tvPaymentProof.setTextColor(Color.parseColor("#000000"));
+//        }
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -133,7 +133,7 @@ public class DetailHistoryActivity extends AppCompatActivity {
     public void uploadPP(View v){
         if (paymentStts){
             Intent intent = new Intent(DetailHistoryActivity.this, SingleViewActivity.class);
-            intent.putExtra("URL",tvPaymentProof.getText().toString());
+            intent.putExtra("URL",buktiPembayaran);
             startActivity(intent);
         } else {
             String up = btnUpload.getText().toString();
@@ -144,7 +144,7 @@ public class DetailHistoryActivity extends AppCompatActivity {
             } else {
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 startActivityForResult(intent, GET_FROM_GALLERY);
-                btnUpload.setText("Send");
+
             }
         }
     }
@@ -228,6 +228,12 @@ public class DetailHistoryActivity extends AppCompatActivity {
                             tmpImgPP = resource;
                         }
                     });
+
+            if (bitmap != null){
+                btnUpload.setText("Send");
+                tvPaymentProof.setText("Payment proof ready to send!");
+                tvPaymentProof.setTextColor(Color.parseColor("#8BC34A"));
+            }
         }
     }
 
@@ -244,6 +250,15 @@ public class DetailHistoryActivity extends AppCompatActivity {
 //                                    id_motor = jsonRESULTS.getJSONObject("motor").getString("id_motor");
                                     String hargaMotor = jsonRESULTS.getJSONObject("motor").getString("harga");
                                     String hargaMotorTotal = jsonRESULTS.getJSONObject("motor").getString("total_harga");
+
+                                    String hargaMotorRes = getRupiah(hargaMotor);
+                                    String hargaMotorTotalRes = getRupiah(hargaMotorTotal);
+
+                                    tvHargaMotor.setText(hargaMotorRes);
+                                    tvHargaDetail.setText(hargaMotorTotalRes);
+                                    tvHargaTotal.setText(hargaMotorTotalRes);
+
+                                    Log.d("Tag Harga",hargaMotor+hargaMotorTotal);
                                     tvNamaMotor.setText(jsonRESULTS.getJSONObject("motor").getString("merk"));
                                     tvJenisMotor.setText(jsonRESULTS.getJSONObject("motor").getString("jenis_motor"));
                                     tvPemilik.setText(jsonRESULTS.getJSONObject("motor").getString("name"));
@@ -305,14 +320,17 @@ public class DetailHistoryActivity extends AppCompatActivity {
                                             if (payment.equals("Cash")){
                                                 lyPaymentProof.setVisibility(View.GONE);
                                             } else {
+                                                lyPaymentProof.setVisibility(View.VISIBLE);
                                                 if (!jsonRESULTS.getJSONObject("motor").isNull("bukti_pembayaran")){
-                                                    tvPaymentProof.setText(jsonRESULTS.getJSONObject("motor").getString("bukti_pembayaran"));
+                                                    paymentStts = true;
+                                                    tvPaymentProof.setText("Payment proof has been uploaded");
+                                                    tvPaymentProof.setTextColor(Color.parseColor("#8BC34A"));
                                                     btnUpload.setText("Show");
+                                                    tvPaymentStatus.setText("Waiting for approvement");
                                                     btnCancel.setVisibility(View.GONE);
-                                                } else {
                                                     buktiPembayaran = jsonRESULTS.getJSONObject("motor").getString("bukti_pembayaran");
+                                                } else {
                                                     tvPaymentStatus.setText("Waiting for payment");
-                                                    lyPaymentProof.setVisibility(View.VISIBLE);
                                                 }
                                             }
                                             break;
@@ -321,7 +339,8 @@ public class DetailHistoryActivity extends AppCompatActivity {
                                             tvPaymentStatus.setTextColor(Color.parseColor("#8BC34A"));
                                             tvPaymentLimit.setText("");
                                             btnCancel.setVisibility(View.GONE);
-                                            lyPaymentProof.setVisibility(View.GONE);
+                                            lyPaymentProof.setVisibility(View.VISIBLE);
+                                            paymentStts = true;
                                             break;
                                         case "Batal":
                                             tvPaymentStatus.setText("Cancel");
@@ -331,13 +350,7 @@ public class DetailHistoryActivity extends AppCompatActivity {
                                             break;
                                     }
 
-                                    String hargaMotorRes = getRupiah(hargaMotor);
-                                    String hargaMotorTotalRes = getRupiah(hargaMotorTotal);
 
-
-                                    tvHargaMotor.setText(hargaMotorRes);
-                                    tvHargaDetail.setText(hargaMotorTotalRes);
-                                    tvHargaTotal.setText(hargaMotorTotalRes);
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     Log.d("errorAPI", "errornya : " + error_message);

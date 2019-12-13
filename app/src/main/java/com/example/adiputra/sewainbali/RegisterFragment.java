@@ -17,8 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.adiputra.sewainbali.apiHelper.BaseApiService;
 import com.example.adiputra.sewainbali.apiHelper.UtilsApi;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -83,10 +87,27 @@ public class RegisterFragment extends Fragment {
     }
 
     private void requestRegister() {
+        final String[] msg = new String[1];
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+
+                        String token = task.getResult().getToken();
+                        msg[0] = getString(R.string.fcm_token, token);
+                        Preferences.setKeyFcm(requireContext(), msg[0]);
+                        Log.d("TAGTAGTAG", msg[0]);
+
+                    }
+                });
         mApiService.registerRequest(edtNama.getText().toString(),
                 edtEmail.getText().toString(),
                 edtPhone.getText().toString(),
-                edtPassword.getText().toString())
+                edtPassword.getText().toString(),
+                msg[0])
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

@@ -10,6 +10,7 @@ public class Preferences {
     private static final String KEY_USERNAME_SEDANG_LOGIN = "Username_logged_in";
     private static final String KEY_STATUS_SEDANG_LOGIN = "Status_logged_in";
     private static final String KEY_STATUS_AKTIF = "status";
+    private static final String KEY_FCM = "fcm";
 
     /** Pendlakarasian Shared Preferences yang berdasarkan paramater context, mutator */
     private static SharedPreferences getSharedPreference(Context context){
@@ -74,6 +75,16 @@ public class Preferences {
 
     public static String getKeyStatusAktif(Context context){
         return getSharedPreference(context).getString(KEY_STATUS_AKTIF,"");
+    }
+
+    public static void setKeyFcm(Context context, String name){
+        SharedPreferences.Editor editor = getSharedPreference(context).edit();
+        editor.putString(KEY_FCM, name);
+        editor.apply();
+    }
+
+    public static String getKeyFcm(Context context){
+        return getSharedPreference(context).getString(KEY_FCM,"");
     }
 
     public static void clearLoggedInUser (Context context){

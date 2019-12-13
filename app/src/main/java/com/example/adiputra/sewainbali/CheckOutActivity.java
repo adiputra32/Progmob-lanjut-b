@@ -103,14 +103,14 @@ public class CheckOutActivity extends AppCompatActivity {
         tvPemilik.setText(getIntent().getStringExtra("PEMILIK"));
         tvHargaDetail.setText(getRupiah(harga));
         if (denda.equals("null")){
-            tvDenda.setText("Rp-/Hour");
+            tvDenda.setText("Rp0/Hour");
         } else {
-            tvDenda.setText(denda + "/Hour");
+            tvDenda.setText("Rp"+denda + "/Hour");
         }
         if (asuransi.equals("null")){
-            tvDenda.setText("Rp-");
+            tvDenda.setText("Rp0");
         } else {
-            tvAsuransi.setText(asuransi);
+            tvAsuransi.setText("Rp"+asuransi);
         }
         tvHargaTotal.setText(getRupiah(harga));
         tvHarga2.setText(getRupiah(harga));

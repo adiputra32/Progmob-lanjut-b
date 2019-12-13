@@ -131,9 +131,10 @@ public class ChatRoomActivity extends AppCompatActivity {
             chat_email = chat_email.replace(".","");
 
             Log.d("chatnya","after : "+chat_msg+" | "+chat_user_name+" | "+chat_email+" | "+email+" | "+email_tujuan);
-            if (chat_email.equals(email) || chat_email.equals(email_tujuan)){
-                addData(chat_user_name,chat_msg,chat_email,email);
-            }
+//            if (chat_email.equals(email) || chat_email.equals(email_tujuan)){
+//                addData(chat_user_name,chat_msg,chat_email,email);
+//            }
+            addData(chat_user_name,chat_msg,chat_email,email);
         }
     }
 

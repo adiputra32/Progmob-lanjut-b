@@ -43,7 +43,7 @@ public class DetailMotorActivity extends AppCompatActivity {
     private ProgressDialog loading;
     //    int[] motor = {R.drawable.motor1, R.drawable.motor2, R.drawable.motor3};
     private BaseApiService mApiService;
-    private String gbrMotor, fine, insurance,hargaMotor,emailPemilik;
+    private String gbrMotor, fine, insurance,hargaMotor,emailPemilik,tokenPemilik;
     private TextView tvHarga,tvNama,tvPemilik,tvMerk,tvYear,tvColor,tvCC,tvFuel,tvHelmet,tvDetail,tvHarga2,tvType,gambar;
     private Drawable jenis;
 
@@ -196,6 +196,7 @@ public class DetailMotorActivity extends AppCompatActivity {
                                     }
 
                                     emailPemilik = jsonRESULTS.getJSONObject("motor").getString("email");
+                                    tokenPemilik = jsonRESULTS.getJSONObject("motor").getString("token");
 
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
