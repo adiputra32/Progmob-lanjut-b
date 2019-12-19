@@ -75,7 +75,6 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                input_msg.getText().clear();
                 Map<String,Object> map = new HashMap<String, Object>();
                 temp_key = root.push().getKey();
                 root.updateChildren(map);
@@ -87,6 +86,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                 map2.put("msg",input_msg.getText().toString());
 
                 message_root.updateChildren(map2);
+		input_msg.getText().clear();
+		recyclerView.scrollToPosition(adapter.getItemCount() - 1);
 
             }
         });

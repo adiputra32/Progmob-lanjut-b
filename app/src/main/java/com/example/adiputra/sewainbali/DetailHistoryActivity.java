@@ -339,7 +339,11 @@ public class DetailHistoryActivity extends AppCompatActivity {
                                             tvPaymentStatus.setTextColor(Color.parseColor("#8BC34A"));
                                             tvPaymentLimit.setText("");
                                             btnCancel.setVisibility(View.GONE);
-                                            lyPaymentProof.setVisibility(View.VISIBLE);
+                                            if (payment.equals("CASH")){
+                                                lyPaymentProof.setVisibility(View.GONE);
+                                            } else{
+                                                lyPaymentProof.setVisibility(View.VISIBLE);
+                                            }
                                             paymentStts = true;
                                             break;
                                         case "Batal":

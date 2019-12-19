@@ -121,13 +121,17 @@ public class AccountFragment extends Fragment {
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("error").equals("false")){
-                                    tvAlamat.setText(jsonRESULTS.getString("address"));
-
+                                    if (!jsonRESULTS.isNull("address")){
+                                        tvAlamat.setText(jsonRESULTS.getString("address"));
+                                    }
                                     setStatus();
                                 } else {
+                                    if (!jsonRESULTS.isNull("address")){
+                                        tvAlamat.setText(jsonRESULTS.getString("address"));
+                                    }
                                     String error_message = jsonRESULTS.getString("error_msg");
-                                    tvAlamat.setText(jsonRESULTS.getString("address"));
                                     Log.d("errorAPI", "errornya : " + error_message);
+                                    Preferences.setKeyStatusAktif(requireContext(),"Not Active");
                                 }
                                 String gambar = jsonRESULTS.getString("photo_profile");
 
@@ -259,5 +263,4 @@ public class AccountFragment extends Fragment {
                 break;
         }
     }
-
 }

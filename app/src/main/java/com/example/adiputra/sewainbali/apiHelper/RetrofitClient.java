@@ -13,13 +13,25 @@ public class RetrofitClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-        if (retrofit == null){
+//        if (retrofit == null){
             retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
-        }
+//        }
+        return retrofit;
+    }
+
+    public static Retrofit getClientNotif() {
+        Retrofit retrofit = null;
+        final String BASE_URL_NOTIF = "http://fcm.googleapis.com/";
+//        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_NOTIF)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+//        }
         return retrofit;
     }
 }

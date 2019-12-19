@@ -1,15 +1,20 @@
 package com.example.adiputra.sewainbali.apiHelper;
 
+import android.app.Notification;
 import android.graphics.Bitmap;
+
+import com.example.adiputra.sewainbali.RequestNotification;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -102,4 +107,10 @@ public interface BaseApiService {
 
     @GET("getChat.php")
     Call<ResponseBody> chatRequest(@Query("email") String email);
+
+    @Headers({"Authorization: key=f5kSYJPyDPI:APA91bEJWljgJTg4t9_0vqyaJqFk71hUVuOZbOAS0jY1vW75lzFDyJ16c4gAn2B383HJcxR-VqcU-pX0yDI_qGgzwrQrLKSTUlIRonM4BGFniWruNENKw3uBGZUJUYTGDwwnwAtbXJti",
+            "Content-Type:application/json"})
+    @POST("fcm/send")
+    Call<ResponseBody> sendChatNotification(@Body RequestNotification requestNotificaton);
+
 }
